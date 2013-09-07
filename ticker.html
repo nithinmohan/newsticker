@@ -1,0 +1,99 @@
+<html>
+<head>
+<script src="jquery.js"></script>
+<style>
+	#ticker
+	{
+		width: 300px;
+		height: 50px;
+		background-color: grey;
+	}
+	#tickercontainer
+	{
+		float: left;
+		position: relative;
+		width: 80%;
+		height: 50px;
+		overflow: hidden;
+	}
+	#fullcontents
+	{
+		width: 20000px;
+	}
+	#fullcontents .contents
+	{
+		position: relative;
+		float: left;
+		width: 250px;
+		height: 100%;
+		opacity: 0;
+		color: white;
+		font-size: 40px;
+		text-align: center;
+	}
+	#tickernext
+	{
+		background: url("right.png");
+		background-size: 100% 100%; 
+		position: relative;
+		width: 10%;
+		height: 100%;
+		background-color: grey;
+		float: left;
+	}
+	#tickerprev
+	{
+		background: url("left.png");
+		background-size: 100% 100%; 
+		position: relative;
+		height: 100%;
+		width: 10%;
+		background-color: grey;
+		float: left;
+	}
+</style>
+</head>
+<body>
+<div id="ticker">
+<div id="tickerprev" class="fullback"></div>
+<div id="tickercontainer">
+<div id="fullcontents">
+<div class="contents">tathva starts</div>
+<div class="contents">clueless starts</div>
+<div class="contents">third</div>
+<div class="contents">fourth</div>
+<div class="contents">fifth</div>
+<div class="contents">sixth</div>
+</div>
+</div>
+<div id="tickernext" class="fullback"></div>
+</div>
+</body>
+<script>
+var prev=function()
+{
+	var k=$("#fullcontents").find(":first");
+	var klast=$("#fullcontents").find(":last");
+	k.animate({"opacity":"0"},100,function(){
+		klast.detach().prependTo($("#fullcontents"));
+			$("#fullcontents").find(":first").animate({"opacity":"1"});
+	});
+}
+var next=function()
+{
+	var k=$("#fullcontents").find(":first");
+	var k2=$("#fullcontents").find(":first").next();
+	k.animate({"opacity":"0"},100,function(){
+		$(this).detach().appendTo($("#fullcontents"));
+			$("#fullcontents").find(":first").animate({"opacity":"1"});
+
+	});
+};
+$(document).ready(function(){
+	var k=$("#fullcontents").find(":first").animate({"opacity":"1"},200);
+	$('#tickerprev').click(prev);
+	$('#tickernext').click(next);
+	var tickertimer=setInterval(next,2000);
+});
+</script>
+</html>
